@@ -52,13 +52,8 @@ enum class Operation() {
 
 object ConsoleServiceImpl : ConsoleService {
 
-    private var figureService: FigureService? = null
+    private var figureService: FigureService = FigureServiceImpl
 
-    init {
-        if (figureService == null) {
-            figureService = FigureServiceImpl
-        }
-    }
 
     private fun createFigure(inputArgs: List<String>): Figure {
 
@@ -101,11 +96,11 @@ object ConsoleServiceImpl : ConsoleService {
 
                     val input: List<String> = line.split("(property=")
                     val figure: Figure = createFigure(input)
-                    figureService?.addFigure(figure)
+                    figureService.addFigure(figure)
                 }
 
-                Operation.GET_AREA -> println("Площадь всех фигур: ${figureService?.getArea().toString()}")
-                Operation.GET_PERIMETER -> println("Периметр всех фигур: ${figureService?.getPerimeter().toString()}")
+                Operation.GET_AREA -> println("Площадь всех фигур: ${figureService.getArea().toString()}")
+                Operation.GET_PERIMETER -> println("Периметр всех фигур: ${figureService.getPerimeter().toString()}")
                 Operation.EXIT -> break
             }
         }
